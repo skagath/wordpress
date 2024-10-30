@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  wordpress:
+    build:
+      context: .
+    ports:
+      - "8000:80" 
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: santok
+      WORDPRESS_DB_PASSWORD: santok 
+      WORDPRESS_DB_NAME: wordpress_db
+    volumes:
+      - ./wordpress:/var/www/html  
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: santok  # Replace with your desired root password
+      MYSQL_DATABASE: wordpress_db
+      MYSQL_USER: santok
+      MYSQL_PASSWORD: santok
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
